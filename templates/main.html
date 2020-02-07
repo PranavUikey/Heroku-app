@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Python for Data Science</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
+  
+  <style>
+    .navbar-custom { 
+    background-color: #0f2e61; 
+    } 
+    </style>
+</head>
+
+<nav class="navbar navbar-custom navbar-inverse navbar-dark sticky-top">
+  <div class="container-fluid">
+      <div class="navbar-header">
+          <a class="navbar-brand" href="/">
+            <img style="max-width:240px; margin-top: -7px;" src="{{ url_for('static', filename='full-logo.png') }}">
+          </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><span class="fa fa-user-plus"></span> Add Student</button>
+      </ul>
+        
+  </div>     
+</nav>
+
+
+
+<body>
+    <div class="container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Name</th>
+            <th scope="col" class="text-center">Q1</th>
+            <th scope="col" class="text-center">Q2</th>
+            <th scope="col" class="text-center">A2</th>
+            <th scope="col" class="text-center">Q3</th>
+            <th scope="col" class="text-center">A3</th>
+            <th scope="col" class="text-center">Q4</th>
+            <th scope="col" class="text-center">A4</th>
+          </tr>
+
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr class="text-center">
+                    <td><a href="/delete/{{ student['Email'] }}" style="color:red"><span class="fa fa-trash"></span></a></td>
+                    
+                      <td>
+                      <!-- Button trigger modal -->
+                      <a href="#exampleModalCenter_{{ student['Name'] }}" data-toggle="modal" data-target="#exampleModalCenter_{{ student['Name'] }}">{{ student["Name"] }}</a>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModalCenter_{{ student['Name'] }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">{{ student['Name'] }}</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <p><span>Email: {{ student['Email'] }}</span></p>
+                              <p><span>Number: {{ student['Number'] }}</span></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </td>
+
+                    <td><a href="/submit/{{ student['Email'] }}_1">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_2">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_3">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_4">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_5">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_6">Submit</a></td>
+                    <td><a href="/submit/{{ student['Email'] }}_7">Submit</a></td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add new Student</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{{ url_for('add_std') }}" id="modal-details">
+              <div class="form-group">
+                <label for="name" class="col-form-label">Name:</label>
+                <input type="text" class="form-control" id="name" name="name">
+              </div>
+              <div class="form-group">
+                <label for="email" class="col-form-label">Email:</label>
+                <input type="text" class="form-control" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label for="number" class="col-form-label">Number:</label>
+                <input type="text" class="form-control" id="number" name="number">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-primary" href="/add_std/">Add</button> -->
+            <input class="btn btn-primary" type="submit" value="Add" form="modal-details">
+          </div>
+        </div>
+      </div>
+    </div>
+  
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	
+</body>
+
+</html>
