@@ -1,6 +1,6 @@
 pandas==0.23.4
 gspread==3.1.0
-numpy==1.15.2
+numpy==1.22.0
 flask==1.1.1
 flask_bootstrap==3.3.7.1.dev1
 flask_wtf==0.14.2
